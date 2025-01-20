@@ -1,0 +1,56 @@
+{
+    "git.autoRepositoryDetection": "subFolders", //при открытии левог офайла 
+    "python.analysis.typeCheckingMode": "off", //отключает проверку на неправельный синтакс
+    "python.analysis.diagnosticMode": "workspace", //анализ всего рабочего пространства вместо только файла
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.completeFunctionParens": true,
+    "breadcrumbs.enabled": true, //врубаем хлебные крошки
+    "python.languageServer": "Pylance", //аддон для подсказок
+    "python.analysis.indexing": true, // индексация сторонних файлов, того же джанги
+    "python.analysis.importFormat": "absolute", // абсолютный импорт
+    "python.analysis.inlayHints.functionReturnTypes": true, // показывает что возращает функция
+    "python.analysis.inlayHints.variableTypes": true, //показывает что возращает переменная
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "django",
+            "depth": 3,
+            "includeAllSymbols": true
+        },
+        {
+            "name": "flask",
+            "depth": 3
+        },
+        {
+            "name": "fastapi",
+            "depth": 3
+        }
+    ], // порог вложенности для инспекции - ставим 3
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter", //форматирование питона при сохранении
+    },
+    //Django раздел
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
+    "files.associations": {
+        "**/*.html": "html",
+        "**/templates/*/*.html": "django-html",
+        "**/templates/*/*/*.html": "django-html",
+        "**/templates/*": "django-html",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+    }, // ассоциации файлов
+    "django.snippets.exclude": [
+        "cms",
+        "wagtail"
+    ], // отключаем снипеты
+    "[django-html]": {
+        "editor.defaultFormatter": "junstyle.vscode-django-support",
+        "breadcrumbs.showClasses": true,
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": true,
+            "strings": true
+        }
+    },
+}
