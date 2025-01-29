@@ -29,8 +29,19 @@ class Women(models.Model):
     is_published = models.BooleanField(
         choices=Status.choices, default=Status.PUBLISHED
     )  # по умолчанию - опубликовано
-    cat = models.ForeignKey("Category", on_delete=models.PROTECT, related_name="posts")
-    tags = models.ManyToManyField("TagPost", blank=True, related_name="tags")
+    cat = models.ForeignKey(
+        "Category", on_delete=models.PROTECT, related_name="posts"
+    )  # связь для категорий
+    tags = models.ManyToManyField(
+        "TagPost", blank=True, related_name="tags"
+    )  # связь для тегов
+    husband = models.OneToOneField(
+        "Husband",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="wuman",
+    )  # связь для мужей
 
     objects = models.Manager()  # возвращаем менеджер по умолчанию
     published = PublishedManager()  # наш кастомный менеджер
@@ -68,3 +79,11 @@ class TagPost(models.Model):
         return reverse(
             "tag", kwargs={"tag_slug": self.slug}
         )  # "tag" маршрут с urls.py (name='tag') возвращает tag_slug c значением slug в данном случае из таблици TagPost
+
+
+class Husband(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField(null=True)
+
+    def __str__(self):
+        return self.name
