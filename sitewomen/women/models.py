@@ -1,4 +1,5 @@
 from pyexpat import model
+from tabnanny import verbose
 from django.db import models
 from django.urls import reverse
 
@@ -50,6 +51,9 @@ class Women(models.Model):
         return self.title
 
     class Meta:
+        verbose_name = "Известные женщины"  # в единственном числе
+        verbose_name_plural = "Известные женщины"  # в множественном
+
         ordering = ["-time_create"]  # указываем обратную сортировку по времени создания
         indexes = [models.Index(fields=["-time_create"])]
 

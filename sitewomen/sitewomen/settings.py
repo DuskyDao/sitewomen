@@ -26,7 +26,9 @@ SECRET_KEY = "django-insecure-ep19jptql=#t198f9qf5dn$ax&6804ahy-1+-6rj^(%*b3%u)&
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1"]
-INTERNAL_IPS = ["127.0.0.1",]
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -110,7 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+# LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "uk-UA"
+
 
 TIME_ZONE = "UTC"
 
