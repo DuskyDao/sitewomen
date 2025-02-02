@@ -16,25 +16,34 @@ class Women(models.Model):
         DRAFT = 0, "Черновик"
         PUBLISHED = 1, "Опубликовано"
 
-    title = models.CharField(max_length=255)  # название статьи
+    title = models.CharField(
+        max_length=255, verbose_name="Заголовок"
+    )  # название статьи
     slug = models.SlugField(
-        max_length=255,
-        unique=True,
-        db_index=True,
+        max_length=255, unique=True, db_index=True, verbose_name="slug"
     )
     content = models.TextField(
-        blank=True
+        blank=True, verbose_name="Текст статьи"
     )  # текстовое поле, blank=True - можно не заполнять при создании
-    time_create = models.DateTimeField(auto_now_add=True)  # время создания
-    time_update = models.DateTimeField(auto_now=True)  # время обновления
+    time_create = models.DateTimeField(
+        auto_now_add=True, verbose_name="Время создания"
+    )  # время создания
+    time_update = models.DateTimeField(
+        auto_now=True, verbose_name="Время изменения"
+    )  # время обновления
     is_published = models.BooleanField(
-        choices=Status.choices, default=Status.PUBLISHED
-    )  # по умолчанию - опубликовано
+        choices=tuple(map(lambda x: (bool(x[0]), x[1]), Status.choices)),
+        default=Status.DRAFT,
+        verbose_name="Статус",
+    )
     cat = models.ForeignKey(
-        "Category", on_delete=models.PROTECT, related_name="posts"
+        "Category",
+        on_delete=models.PROTECT,
+        related_name="posts",
+        verbose_name="Ктегории",
     )  # связь для категорий
     tags = models.ManyToManyField(
-        "TagPost", blank=True, related_name="tags"
+        "TagPost", blank=True, related_name="tags", verbose_name="Теги"
     )  # связь для тегов
     husband = models.OneToOneField(
         "Husband",
@@ -42,6 +51,7 @@ class Women(models.Model):
         null=True,
         blank=True,
         related_name="wuman",
+        verbose_name="Муж",
     )  # связь для мужей
 
     objects = models.Manager()  # возвращаем менеджер по умолчанию
@@ -62,8 +72,14 @@ class Women(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, db_index=True)
-    slug = models.SlugField(max_length=254, unique=True, db_index=True)
+    name = models.CharField(max_length=100, db_index=True, verbose_name="Имя категории")
+    slug = models.SlugField(
+        max_length=254, unique=True, db_index=True, verbose_name="slug"
+    )
+
+    class Meta:
+        verbose_name = "Категории"
+        verbose_name_plural = "Категории"
 
     def __str__(self):
         return self.name
@@ -73,8 +89,14 @@ class Category(models.Model):
 
 
 class TagPost(models.Model):
-    tag = models.CharField(max_length=100, db_index=True)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+    tag = models.CharField(max_length=100, db_index=True, verbose_name="Имя тега")
+    slug = models.SlugField(
+        max_length=255, unique=True, db_index=True, verbose_name="slug"
+    )
+
+    class Meta:
+        verbose_name = "Теги"
+        verbose_name_plural = "Теги"
 
     def __str__(self):
         return self.tag
