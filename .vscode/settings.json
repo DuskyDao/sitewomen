@@ -29,6 +29,10 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter", //форматирование питона при сохранении
     },
+    // "black-formatter.args": [
+    //     "--line-length",
+    //     "119"
+    // ],
     //Django раздел
     "emmet.includeLanguages": {
         "django-html": "html"

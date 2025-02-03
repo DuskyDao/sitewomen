@@ -1,3 +1,4 @@
+from turtle import title
 from django.contrib import admin, messages
 from .models import Category, TagPost, Women
 
@@ -10,6 +11,7 @@ class MariedFilter(admin.SimpleListFilter):
         return [("married", "Замужем"), ("single", "Не замужем")]
 
     def queryset(self, request, queryset):
+        # return queryset
         if self.value() == "married":
             return queryset.filter(husband__isnull=False)
         elif self.value() == "single":
@@ -18,6 +20,9 @@ class MariedFilter(admin.SimpleListFilter):
 
 @admin.register(Women)
 class WomenAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
+    # readonly_fields = ["slug"]
+    filter_horizontal = ["tags"]
     list_display = (
         "title",
         "time_create",
