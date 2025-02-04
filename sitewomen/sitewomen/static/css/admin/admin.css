@@ -1,0 +1,10 @@
+:root {
+    --header-bg: rgb(45, 24, 65);
+    --secondary: var(--header-bg);
+    --default-button-bg: var(--header-bg);
+}
+
+/* #header,
+.module caption {
+    background-color: blueviolet;
+} */
