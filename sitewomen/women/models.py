@@ -32,7 +32,7 @@ class Women(models.Model):
         max_length=255, verbose_name="Заголовок"
     )  # название статьи
     slug = models.SlugField(
-        max_length=255, unique=True, db_index=True, verbose_name="slug"
+        max_length=255, unique=True, db_index=True, verbose_name="Slug"
     )
     content = models.TextField(
         blank=True, verbose_name="Текст статьи"
