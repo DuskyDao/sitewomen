@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify
 
-from .forms import AddPostForm
+from .forms import AddPostForm, UploadFileForm
 
 from .models import TagPost, Women, Category
 
@@ -33,6 +33,7 @@ def index(request):
     return render(request, "women/index.html", context=data)
 
 
+# import uuid
 def handle_uploaded_file(f):
     with open(f"sitewomen/uploads/{f.name}", "wb+") as destination:
         for chunk in f.chunks():
@@ -41,8 +42,14 @@ def handle_uploaded_file(f):
 
 def about(request):
     if request.method == "POST":
-        handle_uploaded_file(request.FILES["file_upload"])
-    return render(request, "women/about.html", {"title": "О сайте", "menu": menu})
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(form.cleaned_data["file"])
+    else:
+        form = UploadFileForm()
+    return render(
+        request, "women/about.html", {"title": "О сайте", "menu": menu, "form": form}
+    )
 
 
 # def about(request):
